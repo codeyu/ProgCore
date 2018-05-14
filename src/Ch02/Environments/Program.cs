@@ -7,7 +7,6 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-
 namespace Environments
 {
     public class Program
@@ -19,6 +18,8 @@ namespace Environments
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                //.UseStartup<GlobalAsax>()
+                //.UseStartup(Assembly.GetEntryAssembly().GetName().Name)
                 .UseStartup<Startup>()
                 .Build();
     }

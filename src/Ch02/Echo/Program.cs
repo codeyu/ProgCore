@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+//添加不用的程序集会报异常：
+//Program.cs(21,25): error CS1501: No overload for method 'Run' takes 1 arguments
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

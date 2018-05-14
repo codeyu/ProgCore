@@ -20,14 +20,61 @@ namespace Environments
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsProduction())
+            {
+                app.UseExceptionHandler("/app/error");
+            }
+            else
             {
                 app.UseDeveloperExceptionPage();
             }
 
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                await context.Response
+                    .WriteAsync("Courtesy of <b>Programming ASP.NET Core</b>!" +
+                                "<hr>" +
+                                "CONFIGURE<br>" +
+                                //"TYPE=StartupDevelopment<br>" + 
+                                "ENVIRONMENT=" + env.EnvironmentName);
+            });
+        }
+
+        // (DEVELOPMENT mode)
+        public void ConfigureDevelopment(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.Run(async (context) =>
+            {
+                await context.Response
+                    .WriteAsync("Courtesy of <b>Programming ASP.NET Core</b>!" +
+                                "<hr>" +
+                                //"TYPE=StartupDevelopment<br>" + 
+                                "ENVIRONMENT=" + env.EnvironmentName);
+            });
+        }
+        // (PRODUCTION mode)
+        public void ConfigureProduction(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.Run(async (context) =>
+            {
+                await context.Response
+                    .WriteAsync("Courtesy of <b>Programming ASP.NET Core</b>!" +
+                                "<hr>" +
+                                "TYPE=StartupProduction<br>" +
+                                "ENVIRONMENT=" + env.EnvironmentName);
+            });
+        }
+        // (WHATEVER mode)
+        public void ConfigureWhatever(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.Run(async (context) =>
+            {
+                await context.Response
+                    .WriteAsync("Courtesy of <b>Programming ASP.NET Core</b>!" +
+                                "<hr>" +
+                                "TYPE=StartupWhatever<br>" +
+                                "ENVIRONMENT=" + env.EnvironmentName);
             });
         }
     }
